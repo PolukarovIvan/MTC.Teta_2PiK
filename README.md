@@ -13,7 +13,7 @@
 С математической точки зрения мы хотим, чтобы как можно больше людей из тех, кого мы выберем приняли наше предложение. Нам требуется построить бинарный классификатор, с вероятностными прогнозами. Для повышения показателя конверсии нам необходимо оптимизировать precision, но так же необходимо охватить больше потенциально согласных пользователей, поэтому мы будем оптимизировать __F1 score__ и следить за __precision__.
 
 ### Данные
-Dataset был взят с платформы [kaggle](https://www.kaggle.com/krantiswalke/bank-personal-loan-modelling/code). 
+Dataset был взят с платформы [kaggle](https://www.kaggle.com/krantiswalke/bank-personal-loan-modelling). 
 
 ___Пример данных___
 [![data](https://i.imgur.com/D3IqggG.png)](https://www.kaggle.com/krantiswalke/bank-personal-loan-modelling)
