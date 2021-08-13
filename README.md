@@ -5,7 +5,7 @@
 *  Красильников Денис
 
 ### Описание репозитория:
-* models\ &mdash; папка с итоговыми моделями
+* model &mdash; папка с итоговыми моделями
 * BPL.csv &mdash; исходный набор данных
 * Personal_Loan_project.ipynb &mdash; ноутбук с решением
 * data_engeneering_pipeline.pkl &mdash; пайплайн предобработки данных
