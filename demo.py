@@ -96,7 +96,7 @@ with st.form('text'):
 
 
 
-st.write('OR')
+st.markdown('__OR__')
 
 with st.form('table'):
 	uploaded_file = st.file_uploader("Upload a csv file", ["csv"])
