@@ -4,6 +4,7 @@ import base64
 import joblib
 from random import randint
 from prep import FeatureSelector, FeatureGemerator
+import shap
 
 
 def get_table_download_link(df):
@@ -34,19 +35,21 @@ def to_df(ID,Age,Exp,Incm,Fam,CCAvg,education,Mort,sa,cd,online,credit):
 	return df
 
 
-model = joblib.load('models/rfc_model.pkl')
+model = joblib.load('models/cb_model.pkl')
 target_name = ["won't accept",'will accept']
 
 st.title('Demo of personal loan prediction model')
 with st.form('text'):
+	c1,c2,c3 = st.columns([1,1,1])
+	c4,c5,c6 = st.columns([1,1,1])
 	ID=randint(0,300)
-	Age = st.number_input("Enter client's age", min_value = 21)
-	Exp = st.number_input("Enter client's proffesional experience", min_value = 0)
-	Incm = st.number_input("Enter client's annual income($000)", value = 30, step = 5)
-	Fam = st.number_input("Enter the client's size family", min_value = 1)
-	CCAvg = st.number_input("Enter client's average spending on credit cards per month ($000)", min_value = 0.0)
+	Age = c1.number_input("Enter client's age", min_value = 21)
+	Exp = c2.number_input("Enter client's proffesional experience", min_value = 0)
+	Incm = c3.number_input("Enter client's annual income($000)", value = 30, step = 5)
+	Fam = c4.number_input("Enter the client's size family", min_value = 1)
+	CCAvg = c5.number_input("Enter client's average spending on credit cards per month ($000)", min_value = 0.0)
+	Mort = c6.number_input("Enter the mortrage size (if client has it)", min_value = 0.0, step = 50.0)
 	education = st.selectbox("Select client's education level", ( 'Undergrad', 'Graduate','Advanced/Professional'))
-	Mort = st.number_input("Enter the mortrage size (if client has it)", min_value = 0.0, step = 50.0)
 	sa = st.checkbox('Client has a securities account with the bank')
 	cd = st.checkbox('Client has a certificate of deposit account with the bank')
 	online = st.checkbox('Client use internet banking facilities')
@@ -58,11 +61,14 @@ with st.form('text'):
 		ready_to_predict = pipeline.fit_transform(test_df)
 		pred = model.predict(ready_to_predict)
 		prob = model.predict_proba(ready_to_predict)
+		explainer = shap.TreeExplainer(model)
+		shap_values = explainer.shap_values(ready_to_predict)
+		name = f'Сlient {target_name[pred[0]]} offer with {prob[0][pred[0]]:.3f} probability' 
+		st.write(name)
+		st.pyplot(shap.force_plot(explainer.expected_value[pred[0]], shap_values[pred[0]],
+		 ready_to_predict.iloc[0], show=False, matplotlib=True, out_names='probability of prediction'))
 
-		st.write(test_df)
-		st.write(f'The client {target_name[pred[0]]} with {prob[0][pred[0]]} probability' )
-		st.write(pred)
-		st.write(prob)
+
 
 st.write('OR')
 
