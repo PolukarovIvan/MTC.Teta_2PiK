@@ -1,5 +1,8 @@
 from sklearn.pipeline import Pipeline, TransformerMixin
 from sklearn.base import BaseEstimator
+from pandas import read_csv
+
+
 
 class FeatureGemerator(TransformerMixin, BaseEstimator):
     '''
@@ -14,16 +17,17 @@ class FeatureGemerator(TransformerMixin, BaseEstimator):
 
     def transform(self, X):
         # transform X via code or additional methods
+        df = read_csv('BPL.csv')
         
-        # is sth features
+        # is sth features      
         X['IsMortgaged'] = X['Mortgage'] > 0
         X['IsFamily'] = X['Family'] > 1
         X['IsEducated'] = X['Education'] > 1
 
         # Is > than 75 qq
-        X['IsMortgaged75'] = (X['Mortgage'] > X.describe().loc['75%', 'Mortgage']) & X['IsMortgaged']
-        X['IsIncome75'] = X['Income'] > X.describe().loc['75%', 'Income']
-        X['IsCCAvg75'] = X['CCAvg'] > X.describe().loc['75%', 'CCAvg']
+        X['IsMortgaged75'] = (X['Mortgage'] > df.describe().loc['75%', 'Mortgage']) & X['IsMortgaged']
+        X['IsIncome75'] = X['Income'] > df.describe().loc['75%', 'Income']
+        X['IsCCAvg75'] = X['CCAvg'] > df.describe().loc['75%', 'CCAvg']
         
         return X
 
