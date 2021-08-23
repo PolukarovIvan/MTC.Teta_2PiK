@@ -29,6 +29,15 @@ class FeatureGemerator(TransformerMixin, BaseEstimator):
         X['IsIncome75'] = X['Income'] > df.describe().loc['75%', 'Income']
         X['IsCCAvg75'] = X['CCAvg'] > df.describe().loc['75%', 'CCAvg']
         
+        # change type
+        X['IsMortgaged'] = X['IsMortgaged'].astype('int')
+        X['IsFamily'] = X['IsFamily'].astype('int')
+        X['IsEducated'] = X['IsEducated'].astype('int')
+        
+        X['IsMortgaged75'] = X['IsMortgaged75'].astype('int')
+        X['IsIncome75'] = X['IsIncome75'].astype('int')
+        X['IsCCAvg75'] = X['IsCCAvg75'].astype('int')
+        
         return X
 
 class FeatureSelector(TransformerMixin, BaseEstimator):
