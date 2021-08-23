@@ -104,7 +104,10 @@ with st.form('table'):
 	file_button = st.form_submit_button('Predict labels')
 
 	if uploaded_file is not None:
-		file = pd.read_csv(uploaded_file)
+        try:
+            file = pd.read_csv(uploaded_file, sep= '[;,]', engine='python')
+        except:
+            st.markdown('__Fail upload__')
 
 	if file_button:
 		try:
