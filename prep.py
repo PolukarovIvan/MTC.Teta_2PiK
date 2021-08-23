@@ -57,8 +57,18 @@ class FeatureSelector(TransformerMixin, BaseEstimator):
         
         # опустим коды сотрудников (ID, ZIP Code),
         # а также признаки Age и Experience, в связи с их неинформативностью
-        X = X.drop(["ID", "ZIP Code", 'Age', 'Experience'], axis=1) 
         
+        columns = ["ID", "ZIP Code", 'Age', 'Experience']
+        
+        # dropping columns
+        for column in columns:
+            try:
+                X = X.drop([column], axis=1) 
+                
+            except Exception as e:
+                # print(e.args)
+                print(f'Column [{column}] not found!')
+                
         global train_columns
         train_columns = X.columns
 
