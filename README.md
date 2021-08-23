@@ -5,9 +5,9 @@
 *  [Красильников Денис](https://github.com/deethereal)
 
 ### Описание репозитория:
-* models\ &mdash; папка с итоговыми моделями
+* models &mdash; папка с итоговыми моделями
 * BPL.csv &mdash; исходный набор данных
-* [Personal_Loan_project.ipynb](https://github.com/deethereal/MTC.Teta_2PiK/blob/master/Personal_Loan_project.ipynb) &mdash; ноутбук с решением
+* [Personal_Loan_project.ipynb](https://github.com/pam4ek/MTC.Teta_2PiK/blob/master/Personal_Loan_project.ipynb) &mdash; ноутбук с решением
 * data_engeneering_pipeline.pkl &mdash; пайплайн предобработки данных
 * dtc_raw_tree.dot &mdash; служебный файл для визуализации решающего дерева
 * dtc_raw_tree.png &mdash; изображение решающего дерева
