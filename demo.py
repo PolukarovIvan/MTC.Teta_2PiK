@@ -35,9 +35,10 @@ def to_df(ID,Age,Exp,Incm,Fam,CCAvg,education,Mort,sa,cd,online,credit):
 	return df
 @st.cache
 def gen_random_param():
+	age = randint(21, 72)
 	params = {
-		'age' : randint(21, 72),
-		'exp' : randint(0, 40),
+		'age' : age,
+		'exp' : randint(0, age-18),
 		'inc' : randint(5, 250),
 		'fam' : randint(1, 4),
 		'ccavg': randint(0, 10),
