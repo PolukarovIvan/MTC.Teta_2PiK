@@ -3,9 +3,14 @@ import pandas as pd
 import base64
 import joblib
 from random import randint
+import streamlit.components.v1 as components
 from prep import FeatureSelector, FeatureGemerator
 import shap
+shap.initjs()
 
+def st_shap(plot, height=None):
+    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
+    components.html(shap_html, height=height)
 
 def get_table_download_link(df):
     """Generates a link allowing the data in a given panda dataframe to be downloaded
@@ -89,9 +94,20 @@ with st.form('text'):
 		explainer = shap.TreeExplainer(model_pipeline.named_steps['cb_classifier'])
 		shap_values = explainer.shap_values(ready_to_predict)
 		name = f'Сlient {target_name[pred[0]]} offer with {prob[0][pred[0]]:.3f} probability' 
+		labels =[
+	    'Income($$$)',"Family size","ACCS","Education lvl", "Mortgage",
+	    "securities account", "Certificate of deposit", "Internet banking facilities","Credit Card", "Has mortgage",
+	    "Have family", "Graduated", "Mortgage is tercile","Income is tercile","ACCS is tercile"
+	    ]
+
 		st.write(name)
-		st.pyplot(shap.force_plot(explainer.expected_value, shap_values[0,:],
-		 ready_to_predict.iloc[0,:], show=False, matplotlib=True, out_names='probability of prediction'))
+		
+		st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:],
+		 	ready_to_predict.iloc[0,:], out_names='probability of prediction', feature_names=labels,link='logit'))
+		st.write('<small>*ACCS — Average credit card spending</small>', unsafe_allow_html=True)
+		st.markdown('Higher scores lead the model to predict 1 and lower scores lead the model to predict 0.'
+		'With red representing features that pushed the model score higher, and blue representing features that pushed the score lower.'
+		 'Features that had more of an impact on the score are located closer to the dividing boundary between red and blue, and the size of that impact is represented by the size of the bar.')
 
 
 
