@@ -5,13 +5,14 @@
 *  [Красильников Денис](https://github.com/deethereal)
 
 ### Описание репозитория:
-* models\ &mdash; папка с итоговыми моделями
+* models/ &mdash; папка с итоговыми моделями
 * BPL.csv &mdash; исходный набор данных
-* [Personal_Loan_project.ipynb](https://github.com/deethereal/MTC.Teta_2PiK/blob/master/Personal_Loan_project.ipynb) &mdash; ноутбук с решением
+* [Personal_Loan_project.ipynb](https://github.com/deethereal/MTC.Teta_2PiK/blob/master/Personal_Loan_project.ipynb) &mdash; ноутбук с решением 2 домашнего задания
+* [ModelValidation.ipynb](https://github.com/deethereal/MTC.Teta_2PiK/blob/master/ModelValidation.ipynb) &mdash; ноутбук с решением 3 домашнего задания
+
 * data_engeneering_pipeline.pkl &mdash; пайплайн предобработки данных
-* dtc_raw_tree.dot &mdash; служебный файл для визуализации решающего дерева
-* dtc_raw_tree.png &mdash; изображение решающего дерева
-* scoring_df.csv &mdash; метрики всех моеделей
+* pics/ &mdash; картинки, используемые в readme
+* scores/ &mdash; метрики всех моделей и catboost 
  
 
 ### Описание проекта
@@ -69,7 +70,19 @@ Delta2 = (-0.013 * M + 0.915 * N) * n = (-0.013 * 1000 + 0.915 * 50) * 5000 = 16
  
 <details>
 <summary><b>Описание третьего домашнего задания</b></summary>
- Находится здесь
+ 
+В рамках прошлого домашнего задания мы построили baseline, после чего начали сравнивать его с различными моделями и остановились на [catboost](https://catboost.ai/docs) модели, обученную модель можно найти в папке [models](https://github.com/deethereal/MTC.Teta_2PiK/blob/master/models/) под названием [cb_model](https://github.com/deethereal/MTC.Teta_2PiK/blob/master/models/cb_model.pkl).
+Мы получили следующие значения важности каждого призанка у данной модели 
+ <img width="748" alt="feature_imp" src="https://user-images.githubusercontent.com/48176611/130852973-da68d061-e006-44a8-8db7-c2f625674371.png">
+ 
+Наиболее важным для банка является показатель дохода, а также довольно сильными показателями является семья, образование и месячная трата по кредитной карте.    
+Для оценки качества модели мы использовали стратифицированную k-Fold валидацию на всем датасете с разбиением на 5 фолдов. В итоге у нас получился разброс 2%  относительно среднего значения f1 меры.
+ 
+
+ 
+ Нами также была сделана [демо-версия](https://share.streamlit.io/pam4ek/mtc.teta_2pik/demo.py) нашего сервиса. В ней можно ввести данные пользователя вручную или загрузить csv файл с данными клиентов
+
+
 </details>
  
  
