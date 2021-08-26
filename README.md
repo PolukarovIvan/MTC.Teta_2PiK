@@ -5,6 +5,7 @@
 *  [Красильников Денис](https://github.com/deethereal)
 
 ### Описание репозитория:
+* [DEMO Stand](https://share.streamlit.io/pam4ek/mtc.teta_2pik/demo.py) &mdash;  демо-версия сервиса
 * models/ &mdash; папка с итоговыми моделями
 * BPL.csv &mdash; исходный набор данных
 * [Personal_Loan_project.ipynb](https://github.com/deethereal/MTC.Teta_2PiK/blob/master/Personal_Loan_project.ipynb) &mdash; ноутбук с решением 2 домашнего задания
