@@ -75,7 +75,7 @@ with st.form('text'):
 	ID=randint(0,300)
 	Age = c1.number_input("Enter client's age", min_value = 21, value = params['age'])
 	Exp = c2.number_input("Enter client's professional experience", min_value = 0, value= params['exp'])
-	Incm = c3.number_input("Enter client's annual income($000)", value = params['inc'], step = 5)
+	Incm = c3.number_input("Enter client's annual income($000)", min_value=0, value = params['inc'], step = 5)
 	Fam = c4.number_input("Enter the client's size family", min_value = 1, value = params['fam'])
 	CCAvg = c5.number_input("Enter client's average spending on credit cards per month ($000)", min_value = 0.0, value = float(params['ccavg']))
 	Mort = c6.number_input("Enter the mortgage size (if client has it)", min_value = 0, step = 50, value = params['mort'])
