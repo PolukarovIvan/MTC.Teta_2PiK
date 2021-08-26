@@ -73,3 +73,8 @@ class FeatureSelector(TransformerMixin, BaseEstimator):
         train_columns = X.columns
 
         return X
+    
+    
+    
+def evaluate_economic_effect(score, n=1, M=1000, N=50):
+    return (score * M - N) * n
