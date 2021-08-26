@@ -58,7 +58,7 @@ def gen_random_param():
 
 model_pipeline = joblib.load('models/final_model.pkl')
 target_name = ["won't accept",'will accept']
-
+st.set_page_config(layout="wide")
 st.title('Demo of personal loan prediction model')
 #st.write('<small>For the correct display of the results switch on to the light theme in the settings</small>', unsafe_allow_html=True)
 
@@ -118,6 +118,23 @@ with st.form('text'):
 st.markdown('__OR__')
 
 with st.form('table'):
+	st.write('For the correct work, please use the table format below (with the right order and names of columns)')
+	example_df = pd.DataFrame(index=['Data type'])
+	example_df['ID']='int'
+	example_df['Age'] = 'int'
+	example_df['Experience'] = 'int'
+	example_df['Income'] = 'int'
+	example_df['ZIP Code'] = 'int'
+	example_df['Family'] = 'int'
+	example_df['CCAvg'] = 'float'
+	example_df['Education'] =  'Undergrad: 0, Graduate: 1\nAdvanced/Professional:2'
+	example_df['Mortgage'] = 'int or bool'
+	example_df['Securities Account'] = 'int or bool'
+	example_df['CD Account'] = 'int or bool'
+	example_df['Online'] = 'int or bool'
+	example_df['CreditCard'] = 'int or bool'
+	example_df.index.name = 'Name of columns'
+	st.table(example_df)
 	uploaded_file = st.file_uploader("Upload a csv file", ["csv"])
 	file_button = st.form_submit_button('Predict labels')
 
