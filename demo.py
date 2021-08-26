@@ -7,7 +7,6 @@ import streamlit.components.v1 as components
 from prep import FeatureSelector, FeatureGemerator
 import shap
 shap.initjs()
-
 def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
     components.html(shap_html, height=height)
@@ -61,10 +60,11 @@ model_pipeline = joblib.load('models/final_model.pkl')
 target_name = ["won't accept",'will accept']
 
 st.title('Demo of personal loan prediction model')
-
+#st.write('<small>For the correct display of the results switch on to the light theme in the settings</small>', unsafe_allow_html=True)
 
 with st.form('text'):
 	random_person_button = st.form_submit_button('Generate random person')
+
 	params = gen_random_param()
 	if random_person_button:
 		st.caching.clear_cache()
@@ -93,7 +93,9 @@ with st.form('text'):
 		prob = model_pipeline[-1].predict_proba(ready_to_predict)
 		explainer = shap.TreeExplainer(model_pipeline.named_steps['cb_classifier'])
 		shap_values = explainer.shap_values(ready_to_predict)
-		name = f'Сlient {target_name[pred[0]]} offer with {prob[0][pred[0]]:.3f} probability' 
+		name = f'Сlient will accept offer with {prob[0][1]:.3f} probability'
+		if pred[0]==0:
+			name+=f' (probability of __rejection__: {prob[0][0]:.3f})'
 		labels =[
 	    'Income($$$)',"Family size","ACCS","Education lvl", "Mortgage",
 	    "securities account", "Certificate of deposit", "Internet banking facilities","Credit Card", "Has mortgage",
@@ -103,7 +105,7 @@ with st.form('text'):
 		st.write(name)
 		
 		st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:],
-		 	ready_to_predict.iloc[0,:], out_names='probability of prediction', feature_names=labels,link='logit'))
+		 	ready_to_predict.iloc[0,:], out_names='probability of acceptance', feature_names=labels,link='logit'))
 		st.write('<small>*ACCS — Average credit card spending</small>', unsafe_allow_html=True)
 		st.markdown('Higher scores lead the model to predict 1 and lower scores lead the model to predict 0.'
 		'With red representing features that pushed the model score higher, and blue representing features that pushed the score lower.'
