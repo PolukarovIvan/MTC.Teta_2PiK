@@ -78,7 +78,7 @@ with st.form('text'):
 	Incm = c3.number_input("Enter client's annual income($000)", min_value=0, value = params['inc'], step = 5)
 	Fam = c4.number_input("Enter the client's size family", min_value = 1, value = params['fam'])
 	CCAvg = c5.number_input("Enter client's average spending on credit cards per month ($000)", min_value = 0.0, value = float(params['ccavg']))
-	Mort = c6.number_input("Enter the mortgage size (if client has it)", min_value = 0, step = 50, value = params['mort'])
+	Mort = c6.number_input("Enter the mortgage size if any ($000)", min_value = 0, step = 50, value = params['mort'])
 	education = st.selectbox("Select client's education level", ['Undergrad', 'Graduate','Advanced/Professional'], index = params['education'])
 	sa = st.checkbox('Client has a securities account with the bank', value = params['sa'])
 	cd = st.checkbox('Client has a certificate of deposit account with the bank', value = params['cd'])
